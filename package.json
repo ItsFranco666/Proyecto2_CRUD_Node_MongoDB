@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "express": "^4.19.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "express": "^4.19.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
@@ -11,10 +11,13 @@
   "name": "proyecto-2-nodejs-y-mongodb",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "devstart":"nodemon ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -35,5 +38,5 @@
     "url": "https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB/issues"
   },
   "homepage": "https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB#readme",
-  "description": ""
+  "description": "CRUD Proyecto Bicicletas"
 }
