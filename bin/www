@@ -1,38 +1,29 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+/**AUTOR:
+ * Nombre: Andres Felipe Franco Tellez
+ * Codigo: 20221978031
+ * Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git */
 
+/** Dependencias de modulos. */
 var app = require('../app');
 var debug = require('debug')('proyecto-2-nodejs-y-mongodb:server');
 var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
-
+/** Obtener puerto delentorno y guardarlo en express */
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
+/** Crear servidor HTTP */
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+/** Iniciar servidor HTTP */
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+console.debug('Aplicación funcionando en http://localhost:' + port);
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
+/** Normalizar un puerto en un número, cadena o falso */
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -49,10 +40,7 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
+/** Event listener del servidor HTTP evento "error" */
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -62,7 +50,7 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
+  // Maneja errores de escucha específicos con mensajes amigables
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -77,10 +65,7 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
+/** Event listener del servidor HTTP evento "listening" */
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'

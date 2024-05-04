@@ -1,8 +1,14 @@
+//- AUTOR:
+//- Nombre: Andres Felipe Franco Tellez
+//- Codigo: 20221978031
+//- Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git
+
 extends ../layout
 
 block content
 	h1#title Nueva Bicicleta
 
+	// Formulario para crear Bicicletas
 	form(action='/bicicletas/create' method="post")
 		label(for='id') ID:
 		input#id(type='text' name='id')

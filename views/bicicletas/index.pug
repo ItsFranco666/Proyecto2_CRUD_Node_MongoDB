@@ -1,3 +1,8 @@
+//- AUTOR:
+//- Nombre: Andres Felipe Franco Tellez
+//- Codigo: 20221978031
+//- Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git
+
 extends ../layout 
 
 block content
@@ -5,7 +10,7 @@ block content
 	.table-container
 		// Clase table
 		table.table
-			// Encabezado
+			// Encabezado de la tabla
 			thead
 				tr
 					th(scope='col') ID
@@ -13,7 +18,8 @@ block content
 					th(scope='col') MODELO
 					th(scope='col') UBICACIÓN
 					th(scope='col') ACCIÓN
-			// Cuerpo
+
+			// Cuerpo de la tabla con los datos de las bicicletas
 			tbody
 				// Lista de bicicletas que se mandan desde el controlador 'bicicleta'
 				each bici in bicis
@@ -28,6 +34,7 @@ block content
 								a#button.btn(href='bicicletas/' + bici.id + '/update') Editar
 								| 
 								button.btn(type='submit' name='submit_param' value='submit_value') Eliminar 
-						
+	
+	// Boton para ir a la creacion de una nueva bicicleta
 	form(action='/bicicletas/create' method='get')
 		button.btn(type='submit') Nueva Bicicleta

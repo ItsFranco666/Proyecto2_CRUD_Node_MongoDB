@@ -1,3 +1,8 @@
+/**AUTOR:
+ * Nombre: Andres Felipe Franco Tellez
+ * Codigo: 20221978031
+ * Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git */
+
 /**Creacion del objeto map de la API leaflet */
 var map = L.map('map').setView([4.5791545, -74.1576904], 20);
 
@@ -9,23 +14,29 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-/**Marcador ubicacion principal 
-L.marker([4.601527132877571, -74.16330363964164]).addTo(map)
-    .bindPopup('Este es el sitio.')
+/**Marcadores Universidad
+L.marker([4.5791545, -74.1576904]).addTo(map)
+    .bindPopup('Universidad Distrital FJC')
     .openPopup();
+
+L.marker([4.57953416933143, -74.15702058311012]).addTo(map);
+L.marker([4.578689447444823, -74.15654551046767]).addTo(map);
+L.marker([4.577750866397895, -74.15608755756976]).addTo(map);
+L.marker([4.580327695057953, -74.15786801000688]).addTo(map);
+L.marker([4.580327695057953, -74.15786801000688]).addTo(map);
+L.marker([4.580664729905838, -74.15592492009986]).addTo(map);
 */
 
-// L.marker([4.601527132877571, -74.16330363964164]).addTo(map);
-// L.marker([4.6016509324643895, -74.16317708698217]).addTo(map);
-// L.marker([4.601415658877795, -74.16351236310007]).addTo(map);
-
+/**Solicitud AJAX para obtener datos JSON desde URL:'api/bicicletas'.
+ * Si la solicitud es extiosa se iterara sobre el arreglo de bicicletas.
+ * A cada bicicleta se le asignara una etiqueta con su numero y se manda al JSON */
 $.ajax({
     dataType: "json",
     url: "api/bicicletas",
     success: function(result){
         console.log(result)
         result.bicicletas.forEach(function(bici){
-            L.marker(bici.ubicacion, {title: bici.id}).addTo(map);
+            L.marker(bici.ubicacion, {title: 'Bicicleta #' + bici.id}).addTo(map);
         });
     }
-})
+});
