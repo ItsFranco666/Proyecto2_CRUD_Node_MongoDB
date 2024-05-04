@@ -1,16 +1,7 @@
 extends ../layout
 
 block content
-	a(href='/bicicletas') Volver
-
-	br
-	br
-	br
-
-	hi Nueva Bicicleta
-
-	br
-	br
+	h1#title Nueva Bicicleta
 
 	form(action='/bicicletas/create' method="post")
 		label(for='id') ID:
@@ -29,4 +20,7 @@ block content
 		input#modelo(type='text' name='lng')
 		br
 		br
-		input.btn(type='submit' value='OK')
+		.btn-container
+			a#button.btn.btn-primary(href='/bicicletas') Volver
+			| 
+			input#button.btn(type='submit' value='Añadir')

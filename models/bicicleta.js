@@ -40,12 +40,4 @@ Bicicleta.removeById = function(aBiciId) {
     }
 };
 
-
-
-/**Ejemplos de uso */
-var a = new Bicicleta('1', 'rojo', 'urbana', '4.601338930511683, -74.16307682139234');
-var b = new Bicicleta('2', 'blanca', 'urbana', '4.601752315530515, -74.16318657611039');
-Bicicleta.add(a);
-Bicicleta.add(b);
-
 module.exports = Bicicleta;
