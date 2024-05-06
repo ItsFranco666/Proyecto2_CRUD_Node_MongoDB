@@ -19,6 +19,18 @@ var bicicletasAPIRouter = require('./routes/api/bicicletas');
 /**Creacion de la instancia express para usar la aplicacion */
 var app = express();
 
+/**Conexion a MONGODB mediante mongoose */
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/red_bicicletas', {useNewUrlParser: true, useUnifiedTopology: true});
+/**Mongoose utiliza promesas por defecto para operaciones asíncronas.
+ * Esta línea asegura que las promesas utilizadas por Mongoose sean globales */
+mongoose.Promise = global.Promise;
+
+/**Gestionar eventos de error */
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB error de conexion:'));
+
 /**Se indica la ruta de las vistas y el motor que se usara, en este caso se usa pug */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

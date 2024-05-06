@@ -73,3 +73,6 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**Exportar el servidor para los tests */
+module.exports = server;
