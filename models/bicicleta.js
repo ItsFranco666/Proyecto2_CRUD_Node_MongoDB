@@ -4,49 +4,48 @@
  * Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git */
 
 /**Clase Principal de Bicicletas */
-var Bicicleta = function(id, color, modelo, ubicacion) { // Constructor principal
-    this.id = id;
-    this.color = color;
-    this.modelo = modelo;
-    this.ubicacion = ubicacion;
-};
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+/*
+var bicicletaSchema = new Schema({
+    code: Number,
+    color: String,
+    modelo: String,
+    ubicacion: {
+        type: [Number],
+        index: { type: '2dsphere', sparse: true }
+    }
+});
 
-/**Funcion toString de la clase que retorna el id y el color del objeto*/
-Bicicleta.prototype.toString = function() {
-    return 'id: ' + this.id + ' | color: ' + this.color;
-};
-
-/**Lista de bicicletas */
-Bicicleta.allBicis = [];
-
-/**Metodo para añadir bicicletas a la lista */
-Bicicleta.add = function(aBici) {
-    Bicicleta.allBicis.push(aBici);
+bicicletaSchema.methods.ToString = function(){
+    return 'code: ' + this.code + ' | color: ' + this.color;
 }
 
-/**Metodo para buscar bicicletas por id */
-Bicicleta.findById = function(aBiciId) {
-    // Buscar en la coleccion
-    var aBici = Bicicleta.allBicis.find(x => x.id == aBiciId);
-    if(aBici) {
-        return aBici;
-    } else { // Si no existe la bicicleta indicada retornara el error
-        throw new Error(`No existe una bicicleta con el id ${aBiciId}`);
-    }
+bicicletaSchema.statics.createInstance = function(code, color, modelo, ubicacion){
+    return new this({
+        code: code,
+        color: color,
+        modelo: modelo,
+        ubicacion: ubicacion
+    });
+}
+
+bicicletaSchema.statics.allBicis=function(cb){
+    return this.find({},cb);
+}
+
+bicicletaSchema.statics.add = function(aBici, cb){ //le pasamos la bici y un callback
+    this.create(aBici, cb);
 };
 
-/**Metodo para remover una bicicleta */
-Bicicleta.removeById = function(aBiciId) {
-    // Itera sobre todo el array de bicicletas en busca del id especificado
-    for(var i = 0; i < Bicicleta.allBicis.length; i++) {
-        if(Bicicleta.allBicis[i].id == aBiciId) {
-            /**Si se encuentra el registro en el array de bicicletas
-             * se ua la funcion splice para quitar el elemento del array */
-            Bicicleta.allBicis.splice(i, 1);
-            break;
-        }
-    }
+bicicletaSchema.statics.findByCode = function(aCode, cb){ //le pasamos el codigo y un callback
+    return this.findOne({code: aCode}, cb); //trae el primero uno, el primero que encuentro y le pasamos un json con la propieda code y el valor del parametro
 };
 
-/**Module Exports */
-module.exports = Bicicleta;
+bicicletaSchema.statics.removeByCode = function(aCode, cb){
+    return this.deleteOne({code: aCode}, cb);
+};
+
+module.exports = mongoose.model('Bicicleta', bicicletaSchema);
+*/
+module.exports = router;

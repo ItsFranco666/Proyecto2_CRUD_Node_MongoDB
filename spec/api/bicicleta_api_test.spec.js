@@ -10,7 +10,35 @@ var request = require('request');
  * se acaben se muere el proceso del servidor */
 var server = require('../../bin/www');
 
-beforeEach(() => {Bicicleta.allBicis = [];});
+var base_url = "http://localhost:5000/api/bicicletas";
+
+//beforeEach(() => {Bicicleta.allBicis = [];});
+
+describe ("Bicicleta API", () => {
+    beforeEach(function(done){
+        var mongoDB = 'mongodb://localhost/testdb';
+        mongoose.connect(mongoDB, {useNewUrlParser: true});
+
+        const db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+        db.once('open', function() {
+            console.log('We are connected to test database');
+            done();
+        });
+
+
+    });
+
+    afterEach(function(done){
+        Bicicleta.deleteMany({}, function(err, success){
+            if(err) console.log(err);
+            done();
+        });
+    });
+
+
+
+})
 
 /**Tests para la API */
 describe('Bicicletas API', () => {
