@@ -15,6 +15,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bicicletasRouter = require('./routes/bicicletas');
 var bicicletasAPIRouter = require('./routes/api/bicicletas');
+var usuariosAPIRouter = require('./routes/api/usuarios');
 
 /**Creacion de la instancia express para usar la aplicacion */
 var app = express();
@@ -22,7 +23,7 @@ var app = express();
 /**Conexion a MONGODB mediante mongoose */
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/red_bicicletas', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/red_bicicletas');
 /**Mongoose utiliza promesas por defecto para operaciones asíncronas.
  * Esta línea asegura que las promesas utilizadas por Mongoose sean globales */
 mongoose.Promise = global.Promise;
@@ -47,6 +48,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bicicletas', bicicletasRouter);
 app.use('/api/bicicletas', bicicletasAPIRouter);
+app.use('/api/usuarios', usuariosAPIRouter);
 
 /**Captura cualquier solicitud entrante que no haya sido manejada por ninguna otra ruta y genera un error 404 */
 app.use(function(req, res, next) {

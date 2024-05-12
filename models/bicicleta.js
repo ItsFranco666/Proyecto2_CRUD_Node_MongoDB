@@ -1,12 +1,13 @@
-/**AUTOR:
+/**
+ * AUTOR:
  * Nombre: Andres Felipe Franco Tellez
  * Codigo: 20221978031
- * Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git */
+ * Repositorio: https://github.com/ItsFranco666/Proyecto2_CRUD_Node_MongoDB.git
+ */
 
-/**Clase Principal de Bicicletas */
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-/*
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose; // Destructure Schema and model for cleaner syntax
+
 var bicicletaSchema = new Schema({
     code: Number,
     color: String,
@@ -47,5 +48,70 @@ bicicletaSchema.statics.removeByCode = function(aCode, cb){
 };
 
 module.exports = mongoose.model('Bicicleta', bicicletaSchema);
+
+/*
+const bicicletaSchema = new Schema({
+    code: Number,
+    color: String,
+    modelo: String,
+    ubicacion: {
+        type: [Number],
+        index: { type: '2dsphere', sparse: true }, // Indice geografico
+    },
+});
+
+bicicletaSchema.methods.toString = function () { // Arrow function for cleaner syntax
+    return `code: ${this.code} | color: ${this.color}`;
+};
+
+bicicletaSchema.statics.createInstance = function (code, color, modelo, ubicacion) {
+    return new this({
+        code,
+        color,
+        modelo,
+        ubicacion,
+    });
+};
+
+bicicletaSchema.statics.allBicis = async function () { // Use async/await for promises
+    try {
+        const bicicletas = await this.find({});
+        return bicicletas;
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error for proper handling
+    }
+};
+
+bicicletaSchema.statics.add = async function (aBici) { // No need for callback, use async/await
+    try {
+        const nuevaBici = await this.create(aBici);
+        return nuevaBici;
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error for proper handling
+    }
+};
+
+bicicletaSchema.statics.findByCode = async function (aCode) { // Use async/await for promises
+    try {
+        const bicicleta = await this.findOne({ code: aCode });
+        return bicicleta;
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error for proper handling
+    }
+};
+
+bicicletaSchema.statics.removeByCode = async function (aCode) { // Use async/await for promises
+    try {
+        const deleted = await this.deleteOne({ code: aCode });
+        return deleted.deletedCount; // Return the number of documents deleted
+    } catch (error) {
+        console.error(error);
+        throw error; // Re-throw the error for proper handling
+    }
+};
+
+module.exports = model('Bicicleta', bicicletaSchema);
 */
-module.exports = router;

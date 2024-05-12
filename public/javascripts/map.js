@@ -36,7 +36,9 @@ $.ajax({
     success: function(result){
         console.log(result)
         result.bicicletas.forEach(function(bici){
-            L.marker(bici.ubicacion, {title: 'Bicicleta #' + bici.id}).addTo(map);
+            L.marker(bici.ubicacion, {title: 'Bicicleta #' + bici.id}).addTo(map)
+            .bindPopup('Bicicleta #' + bici.id)
+            .openPopup();
         });
     }
 });
