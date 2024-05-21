@@ -7,41 +7,67 @@
 var Bicicleta = require('../../models/bicicleta');
 
 /**Lista de bicicletas */
-bicicleta_list = function (req, res) {
-    res.status(200).json({
-        bicicletas: Bicicleta.allBicis
-    });
-};
+async function bicicleta_list(req, res) {
+    try {
+        const bicicletas = await Bicicleta.allBicis();  // Await the promise from allBicis
+        res.status(200).json({ bicicletas });  // Respond with retrieved bicycles
+        console.log("todas las bicicletas: ", bicicletas);  // Log retrieved bicycles for debugging
+    } catch (error) {
+        console.error("Error retrieving bicicletas:", error);
+        res.status(500).json({ error: "Error retrieving bicycles" }); // Handle error gracefully
+    }
+}
 
 /**Crear registro de bicicleta */
-bicicleta_create = function (req, res) {
-    var bici = new Bicicleta(req.body.id, req.body.color, req.body.modelo);
-    bici.ubicacion = [req.body.lat, req.body.lng];
+async function bicicleta_create(req, res) {
+    const body = {
+        code: req.body.code,
+        color: req.body.color,
+        modelo: req.body.modelo,
+        ubicacion: [req.body.lat, req.body.lng]
+    };
+    var bici = new Bicicleta(body);
 
     Bicicleta.add(bici);
+    console.log("nueva bicicleta creada ", bici)
 
-    res.status(200).json({
+    res.status(201).json({
         bicicleta: bici
     });
 };
 
 /**Actualizar registro de bicicleta */
-bicicleta_update = function (req, res) {
-    var bici = Bicicleta.findById(req.body.id);
-    bici.id = req.body.id;
-    bici.color = req.body.color;
-    bici.modelo = req.body.modelo;
-    bici.ubicacion = [req.body.lat, req.body.lng];
+async function bicicleta_update(req, res) {
+    try {
+        const { code, color, modelo, lat, lng } = req.body; // Destructure request body
 
-    res.status(200).json({
-        bicicleta: bici
-    });
-};
+        const nuevaBici = {
+            code,
+            color,
+            modelo,
+            ubicacion: [lat, lng] // Use spread operator for location array
+        }
+
+        if (!Bicicleta.updateByCode(nuevaBici)) {
+            return res.status(404).json({ message: "Bicicleta no encontrada" });
+        } else {
+            res.status(200).json({ bicicleta: nuevaBici });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error actualizando bicicleta" });
+    }
+}
 
 /**Eliminar registro de bicicleta */
-bicicleta_delete = function (req, res) {
-    Bicicleta.removeById(req.body.id);
-    res.status(204).send();
+async function bicicleta_delete(req, res) {
+    try {
+        Bicicleta.removeByCode(req.body.code);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error eliminando bicicleta" });
+    }
 };
 
 /**Module Exports */

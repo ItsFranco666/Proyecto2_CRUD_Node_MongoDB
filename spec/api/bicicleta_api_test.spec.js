@@ -15,7 +15,7 @@ var base_url = "http://localhost:5000/api/bicicletas";
 
 describe("Bicicleta API", () => {
     beforeEach(function (done) {
-        var mongoDB = 'mongodb://localhost/testdb';
+        var mongoDB = 'mongodb://localhost:27017/testdb';
         mongoose.connect(mongoDB);
 
         const db = mongoose.connection;

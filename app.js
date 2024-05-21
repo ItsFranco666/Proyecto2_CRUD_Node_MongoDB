@@ -22,8 +22,12 @@ var app = express();
 
 /**Conexion a MONGODB mediante mongoose */
 var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/red_bicicletas';
 
-mongoose.connect('mongodb://localhost/red_bicicletas');
+mongoose.connect(mongoDB)
+  .then(connection => {console.log('Conexion Exitosa con la Base de Datos')})
+  .catch(err => console.log("Error en la conexion a mongoDB ", err));
+
 /**Mongoose utiliza promesas por defecto para operaciones asíncronas.
  * Esta línea asegura que las promesas utilizadas por Mongoose sean globales */
 mongoose.Promise = global.Promise;
@@ -38,14 +42,14 @@ app.set('view engine', 'pug');
 
 /**Configuracion middleware */
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json()); //permite leer archivos json en el body de una peticion
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /**Asignar los modulos de las rutas a cada URL con un controlador especifico  */
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/usuarios', usersRouter);
 app.use('/bicicletas', bicicletasRouter);
 app.use('/api/bicicletas', bicicletasAPIRouter);
 app.use('/api/usuarios', usuariosAPIRouter);
